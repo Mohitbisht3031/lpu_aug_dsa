@@ -22,6 +22,25 @@ using namespace std;
 -> small cal.
 */
 
+// iterative approach
+// int len(int n){
+//     if(n < 10)return 1;
+//     int c = 0;
+//     while(n){
+//         c++;
+//         n/=10;
+//     }
+
+//     return c;
+// }
+
+// recursion
+int len(int n){
+    if(n < 10)return 1;
+    int l = len(n/10); //12
+    return 1+l;
+}
+
 int reverse(int n){
     if(n>=1 && n<=9)return n;
 
