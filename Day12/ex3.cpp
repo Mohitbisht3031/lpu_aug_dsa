@@ -1,10 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//self referencial class
 class LLNode{
     public:
     int data;
-    LLNode*next; //self referencial class
+    LLNode*next;
 
     void init(int d){
         data = d;
