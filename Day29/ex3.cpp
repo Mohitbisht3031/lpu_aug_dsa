@@ -3,10 +3,10 @@ using namespace std;
 
 class MyStack{
     stack<int>stk;
-    int mini ;
+    int mii ;
     public:
     MyStack(){
-        mini = INT_MAX;
+        mii = INT_MAX;
     }
     int size(){
         return stk.size();
@@ -19,30 +19,38 @@ class MyStack{
     }
     void pop(){
         if(stk.size() == 0)return;
-        if(stk.top() == mini){
+        if(stk.top() == mii){
             stk.pop();
-            int m = INT_MAX;
-            stack<int>s2;
-            while(!stk.empty()){
-                s2.push(stk.top());
-                stk.pop();
-                m = min(m,s2.top());
-            }
+            mii = stk.top();
+            stk.pop();
+        }
+        // if(stk.top() == mii){
+        //     stk.pop();
+        //     int m = INT_MAX;
+        //     stack<int>s2;
+        //     while(!stk.empty()){
+        //         s2.push(stk.top());
+        //         stk.pop();
+        //         m = min(m,s2.top());
+        //     }
             
-            while(!s2.empty()){
-                stk.push(s2.top());
-                s2.pop();
-            }
-            mini = m;
-        }else stk.pop();
+        //     while(!s2.empty()){
+        //         stk.push(s2.top());
+        //         s2.pop();
+        //     }
+        //     mii = m;
+        // }else stk.pop();
         return;
     }
     void push(int e){
-        mini = min(mini,e);
+        if(e < mii){
+            stk.push(mii);
+        }
+        mii = min(mii,e);
         stk.push(e);
     }
     int mini(){
-        return mini;
+        return mii;
     }
 };
 
