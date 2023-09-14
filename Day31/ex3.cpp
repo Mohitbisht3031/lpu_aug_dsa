@@ -28,7 +28,7 @@ class Dog {
     }
 };
 
-class Cat : public Dog , public Animal{
+class Cat : public Animal{
     public:
     Cat(){
         cout<<"in cat's cons"<<endl;
