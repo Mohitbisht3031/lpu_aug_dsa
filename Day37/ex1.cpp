@@ -33,22 +33,48 @@ using namespace std;
 // }
 
 // k-> no of top priority i want . k == 2
+class D{
+    public:
+    string name;
+    int pr;
+    D(string name ,int pr) : name(name) , pr(pr){}
+    // static bool cmp(D obj1,D obj2){
+    //     if(obj1.pr >= obj2.pr)return 1;
+    //     return 0;
+    // }
+};
+class cmp{
+    public:
+    bool operator() (D obj1,D obj2){
+        return obj1.pr >= obj2.pr; 
+    }
+};
+
+
 void printTop2(vector<string>name,vector<int>p){
-    priority_queue<pair<int,string>>pq;
+    priority_queue<D,vector<D>,cmp>pq;
     for(int i = 0;i<name.size();i++){
+        D obj(name[i],p[i]);
         if(pq.size() < 2){
-            pq.push({p[i],name[i]});
+            // D obj(name[i],p[i]);
+            pq.push(obj);
+            // pq.push({p[i],name[i]});
         }else{
-            if(pq.top().first > p[i]){
+            if(pq.top().pr > p[i]){
                 pq.pop();
-                pq.push({p[i],name[i]});
+                pq.push(obj);
             }
         }
     }
 
-    cout<<pq.top().second<<"-"<<pq.top().first<<endl;
-    pq.pop();
-    cout<<pq.top().second<<"-"<<pq.top().first<<endl;
+    while(!pq.empty()){
+        cout<<pq.top().name<<"-"<<pq.top().pr<<endl;
+        pq.pop();
+    }
+
+    // cout<<pq.top().second<<"-"<<pq.top().first<<endl;
+    // pq.pop();
+    // cout<<pq.top().second<<"-"<<pq.top().first<<endl;
     return;
 }
 
