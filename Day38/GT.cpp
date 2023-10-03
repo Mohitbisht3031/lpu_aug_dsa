@@ -9,17 +9,17 @@ class GTNode{
 };
 
 // not level wise
-// void print(GTNode*root){
-//     cout<<root->data<<"->";
-//     for(int i= 0;i<root->child.size();i++){
-//         cout<<root->child[i]->data<<",";
-//     }
-//     cout<<endl;
-//     for(int i= 0;i<root->child.size();i++){
-//         print(root->child[i]);
-//     }
-//     return;
-// }
+void print(GTNode*root){
+    cout<<root->data<<"->";
+    for(int i= 0;i<root->child.size();i++){
+        cout<<root->child[i]->data<<",";
+    }
+    cout<<endl;
+    for(int i= 0;i<root->child.size();i++){
+        print(root->child[i]);
+    }
+    return;
+}
 // // not level wise
 // GTNode* make(){
 //     int val;
@@ -55,7 +55,9 @@ GTNode* make(){
             int cv;
             cout<<"enter child data"<<endl;
             cin>>cv;
-            q.push(new GTNode(cv));
+            GTNode* cp =new GTNode(cv); 
+            q.push(cp);
+            f->child.push_back(cp);
         }
     }
 
@@ -63,8 +65,20 @@ GTNode* make(){
 }
 
 // level wise
-void print(){
+void print(GTNode*root){
+    queue<GTNode*>q;
+    q.push(root);
 
+    while(!q.empty()){
+        GTNode*f = q.front();
+        q.pop();
+        cout<<f->data<<"-";
+        for(int i = 0;i<f->child.size();i++){
+            cout<<f->child[i]->data<<",";
+            q.push(f->child[i]);
+        }
+    }
+    return;
 }
 
 int main(){ 
