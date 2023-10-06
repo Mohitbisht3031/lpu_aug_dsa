@@ -87,10 +87,86 @@ void print_level(BTnode*root){
     return;
 }
 
+// iterative
+// int height(BTnode*root){
+//     if(!root)return 0;
+//     queue<BTnode*>q;
+//     q.push(root);
+//     int c = 0;
+//     while(!q.empty()){
+//         int s = q.size();
+//         for(int i =0 ;i<s;i++){
+//             BTnode*f = q.front();
+//             q.pop();
+//             if(f->left)q.push(f->left);
+//             if(f->right)q.push(f->right);
+//         }
+//         c++;
+//     }
+//     return c;
+// }
+
+// recursion
+int height(BTnode*root){
+    if(!root)return 0;
+    int lh = height(root->left);
+    int rh = height(root->right);
+
+    return max(lh,rh)+1;    
+}
+
+BTnode* maxSumNode(BTnode*root){
+    if(!root)return NULL;
+    queue<BTnode*>q;
+    q.push(root);
+    int s = 0;
+    BTnode*node = NULL;
+    while(!q.empty()){
+        BTnode*f = q.front();
+        q.pop();
+        int sum = f->val;
+        if(f->left){
+            sum+=f->left->val;
+            q.push(f->left);
+        }
+        if(f->right){
+            sum+=f->right->val;
+            q.push(f->right);
+        }
+        if(sum >= s){
+            s = sum;
+            node = f;
+        }
+    }
+    return node;
+}
+
+void helper(BTnode*root,int&s,BTnode*&node){
+    if(!root)return;
+    int sum = root->val+(root->left ? root->left->val : 0) +(root->right ? root->right->val : 0); 
+
+    if(sum >= s){
+        sum = s;
+        node = root;
+    }
+    helper(root->left,s,node);
+    helper(root->right,s,node);
+    return;
+}
+
+BTnode* maxSumNode(BTnode*root){
+    if(!root)return NULL;
+    BTnode*node = NULL;
+    int s = 0;
+    helper(root,s,node);
+    return node;
+}
+
 int main(){
     // BTnode*root = make();
     // print(root);
     BTnode*root = make_level();
-    print_level(root);
+    // print_level(root);
+    cout<<height(root)<<endl;
     return 0;
 }
