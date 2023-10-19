@@ -40,7 +40,7 @@ void in(BSTnode*root,BSTnode*&prev,BSTnode*&f,BSTnode*&s){
         s = root;
     }
     prev = root;
-    in(root->right,pre,f,s);
+    in(root->right,prev,f,s);
 }
 
 vector<int> correctBST(BSTnode*root){
