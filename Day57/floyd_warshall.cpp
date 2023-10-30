@@ -39,35 +39,9 @@ vector<vector<int>> make_list(){
     return g;
 }
 
-// Dijkstra's algo
-int minCost(vector<vector<pair<int,int>>>&g,int v1,int v2){
-    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-    pq.push({0,v1});
-
-    vector<int>vis(g.size(),0);
-    vector<int>dis(g.size(),INT_MAX);
-    dis[v1] = 0;
-    vis[v1] = 1;
-    while(!pq.empty()){
-        auto f = pq.top();
-        pq.pop();
-        for(auto nbr:g[f.second]){
-            int d = dis[f.second] + nbr.second;
-            if(!vis[nbr.first]){
-                // int d = dis[f.second] + nbr.second;
-                if(d < dis[nbr.first]){
-                    dis[nbr.first] = d;
-                }
-                pq.push({dis[nbr.first],nbr.first});
-                vis[nbr.first] = 1;
-            }else if(d < dis[nbr.first]){
-                dis[nbr.first] = d;
-                pq.push({d,nbr.first});
-            }
-        }
-    }
-
-    return dis[v2];
+// floyd warshall
+void allNodeMinCost(vector<vector<int>>&g){
+    
 }
 
 int main(){
