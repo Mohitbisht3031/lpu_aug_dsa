@@ -39,21 +39,25 @@ vector<vector<int>> make_list(){
     return g;
 }
 
-// floyd warshall
-vector<vector<int>> allNodeMinCost(vector<vector<int>>&g){
-    vector<vector<int>> dis = g;
-    for(int mid = 0;mid<g.size();mid++){
-        for(int i = 0;i<g.size();i++){
-            for(int j = 0;j<g[0].size();j++){
-                if(i == mid || j == mid)continue;
-                if(dis[i][j] > dis[i][mid] + dis[mid][j]){
-                    dis[i][j] = dis[i][mid] + dis[mid][j];
-                }
-            }
+void dfs(vector<vector<int>>&g,int src,vector<int>&in,vector<bool>&vis){
+    vis[src] = 1;
+    for(int nbr : g[src]){
+        if(!vis[nbr]){
+            in[nbr]++;
+            dfs(g,nbr,in,vis);
         }
     }
+    return;
+}
 
-    return dis;
+int returnStartNode(vector<vector<int>>&g){
+    vector<int>in(g.size(),0);
+    vector<bool>vis(g.size(),0);
+    dfs(g,0,in,vis);
+    for(int i = 0;i<in.size();i++){
+        if(in[i] == 0)return i;
+    }
+    return -1;
 }
 
 int main(){
